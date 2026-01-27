@@ -10,6 +10,10 @@ public class TheatreSeating {
         private final int ROWS = 5;
         private final int SEATS_PER_ROW = 10;
 
+    // Seat status constants
+        private final String OPEN = "Open";
+        private final String RESERVED = "Reserved";
+
     // Theater constructor
         public TheatreSeating() {
             seats = new String[ROWS][SEATS_PER_ROW];
@@ -21,7 +25,7 @@ public class TheatreSeating {
         public void initializeSeats() {
             for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < SEATS_PER_ROW; j++) {
-                    seats[i][j] = "Open";
+                    seats[i][j] = OPEN;
                 }
             }
         }
@@ -62,8 +66,8 @@ public class TheatreSeating {
                 }
 
             // Reserve seat or already taken
-                if (seats[row][seat].equals("Open")) {
-                    seats[row][seat] = "Reserved";
+                if (seats[row][seat].equals(OPEN)) {
+                    seats[row][seat] = RESERVED;
 
                     reservations.add(new Reservation(name, row, seat));
                     System.out.println("Seat reserved successfully!");
@@ -78,8 +82,8 @@ public class TheatreSeating {
         private void suggestSeat() {
             for (int i = 0; i < ROWS; i++) {
                 for (int j = 0; j < SEATS_PER_ROW; j++) {
-                    if (seats[i][j].equals("O")) {
-                        // ('A' + i) allows a readable format, iterates throught he rows A-E (5 rows)
+                    if (seats[i][j].equals(OPEN)) {
+                        // ('A' + i) allows a readable format, iterates through he rows A-E (5 rows)
                         System.out.println("Suggested seat: Row " + (char)('A' + i) + " Seat " + (j + 1));
                         return;
                     }
