@@ -48,51 +48,60 @@ public class TheatreSeating {
             }
         }
 
-    public void reserveSeat(String name, int row, int seat) {
+    // Reserve seat
+        public void reserveSeat(String name, int row, int seat) {
 
-        // Allow human numbering to translate to computer numbering
-            row--;
-            seat--;
+            // Allow human numbering to translate to computer numbering
+                row--;
+                seat--;
 
-        // Selection error check
-            if (row < 0 || row >= ROWS || seat < 0 || seat >= SEATS_PER_ROW) {
-                System.out.println("Invalid seat selection.");
-                return;
+            // Selection error check
+                if (row < 0 || row >= ROWS || seat < 0 || seat >= SEATS_PER_ROW) {
+                    System.out.println("Invalid seat selection.");
+                    return;
+                }
+
+            // Reserve seat or already taken
+                if (seats[row][seat].equals("Open")) {
+                    seats[row][seat] = "Reserved";
+
+                    reservations.add(new Reservation(name, row, seat));
+                    System.out.println("Seat reserved successfully!");
+
+                } else {
+                    System.out.println("Seat is already taken.");
+                    suggestSeat();
+                }
+        }
+
+    // Suggest seat
+        private void suggestSeat() {
+            for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < SEATS_PER_ROW; j++) {
+                    if (seats[i][j].equals("O")) {
+                        // ('A' + i) allows a readable format, iterates throught he rows A-E (5 rows)
+                        System.out.println("Suggested seat: Row " + (char)('A' + i) + " Seat " + (j + 1));
+                        return;
+                    }
+                }
             }
 
-        if (seats[row][seat].equals("O")) {
-            seats[row][seat] = "X";
-            reservations.add(new Reservation(name, row, seat));
-            System.out.println("Seat reserved successfully!");
-        } else {
-            System.out.println("Seat is already taken.");
-            suggestSeat();
+            System.out.println("No seats available.");
         }
-    }
 
-    private void suggestSeat() {
-        for (int i = 0; i < ROWS; i++) {
-            for (int j = 0; j < SEATS_PER_ROW; j++) {
-                if (seats[i][j].equals("O")) {
-                    System.out.println("Suggested seat: Row " + (char)('A' + i) + " Seat " + (j + 1));
+    // Cancel Reservation
+        public void cancelReservation(String name) {
+            for (int i = 0; i < reservations.size(); i++) {
+                Reservation reservation = reservations.get(i);
+
+                if (reservation.getCustomerName().equalsIgnoreCase(name)) {
+                    seats[reservation.getRow()][reservation.getSeat()] = "O";
+                    reservations.remove(i);
+                    System.out.println("Reservation cancelled.");
                     return;
                 }
             }
-        }
-        System.out.println("No seats available.");
-    }
 
-    public void cancelReservation(String name) {
-        for (int i = 0; i < reservations.size(); i++) {
-            Reservation r = reservations.get(i);
-
-            if (r.getCustomerName().equalsIgnoreCase(name)) {
-                seats[r.getRow()][r.getSeat()] = "O";
-                reservations.remove(i);
-                System.out.println("Reservation cancelled.");
-                return;
-            }
+            System.out.println("Reservation not found.");
         }
-        System.out.println("Reservation not found.");
-    }
 }
