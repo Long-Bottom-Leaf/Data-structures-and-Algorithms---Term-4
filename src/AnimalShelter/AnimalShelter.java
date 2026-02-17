@@ -23,4 +23,31 @@ public class AnimalShelter {
         }
     }
 
+    // dequeue specific species
+    public Dog dequeueDog() {
+        return dogs.poll();
+    }
+
+    public Cat dequeueCat() {
+        return cats.poll();
+    }
+
+    // oldest overall
+    public Animal dequeueAny() {
+        // if empty, remove the other
+        if (dogs.isEmpty()) return dequeueCat();
+        if (cats.isEmpty()) return dequeueDog();
+
+        // look at head of queue
+        Dog oldestDog = dogs.peek();
+        Cat oldestCat = cats.peek();
+
+        // compare and dequeue
+        if (oldestDog.isOlder(oldestCat)) {
+            return dequeueDog();
+
+        } else {
+            return dequeueCat();
+        }
+    }
 }

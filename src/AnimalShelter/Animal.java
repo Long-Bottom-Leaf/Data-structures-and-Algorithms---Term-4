@@ -1,8 +1,8 @@
 package AnimalShelter;
 
 public abstract class Animal {
-    int order;
-    String name;
+    private int order;
+    private String name;
 
     public Animal(String name) {
         this.name = name;
