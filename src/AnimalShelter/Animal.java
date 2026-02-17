@@ -24,4 +24,9 @@ public abstract class Animal {
     public boolean isOlder(Animal animal) {
         return this.order < animal.getOrder();
     }
+
+    @Override
+    public String toString() {
+        return name + " (order " + order + ")";
+    }
 }

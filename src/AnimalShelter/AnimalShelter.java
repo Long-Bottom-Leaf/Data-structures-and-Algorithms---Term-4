@@ -12,8 +12,17 @@ public class AnimalShelter {
 
     // print animals in a readable format
     public void printAnimals() {
-        System.out.println("Dogs: " + dogs);
-        System.out.println("Cats: " + cats);
+        System.out.println("\n---- Current Animals In Shelter ----");
+
+        for (Dog dog : dogs) {
+            System.out.println("Dog: " + dog);
+        }
+
+        for (Cat cat : cats) {
+            System.out.println("Cat: " + cat);
+        }
+
+        System.out.println("--------------------------------");
     }
 
     // add animal
