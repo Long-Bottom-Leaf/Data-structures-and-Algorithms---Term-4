@@ -10,6 +10,12 @@ public class AnimalShelter {
     private Queue<Cat> cats = new LinkedList<>();
     private int order = 0;  // initial order
 
+    // print animals in a readable format
+    public void printAnimals() {
+        System.out.println("Dogs: " + dogs);
+        System.out.println("Cats: " + cats);
+    }
+
     // add animal
     public void enqueue(Animal animal) {
         animal.setOrder(order);
